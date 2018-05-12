@@ -31,7 +31,7 @@ def get_credentials():
     Returns:
         Credentials, the obtained credential.
     """
-    credential_dir = os.path.join('./.credentials')
+    credential_dir = os.path.join('/home/orangecola3/Gym-Facilitation-Timetable/.credentials')
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     credential_path = os.path.join(credential_dir,
@@ -72,7 +72,7 @@ def main():
     
 
     #Generate List of Users
-    file = open('users.txt')
+    file = open('/home/orangecola3/Gym-Facilitation-Timetable/users.txt')
     users = file.readlines()
     for i in range(len(users)):
         users[i] = users[i].rstrip()
@@ -98,7 +98,7 @@ def main():
           "title": sheetName,
           "gridProperties": {
             "rowCount": len(mondays) * (4 + len(users)) + 8,
-            "columnCount": 12
+            "columnCount": 7
           }
         }
       }
@@ -139,7 +139,7 @@ def main():
           "sheetId": newSheetId,
           "dimension": "COLUMNS",
           "startIndex": 2,
-          "endIndex": 12
+          "endIndex": 7
         },
         "properties": {
           "pixelSize": 159
@@ -172,14 +172,14 @@ def main():
               "startRowIndex": 0,
               "endRowIndex": 4,
               "startColumnIndex": 0,
-              "endColumnIndex": 12
+              "endColumnIndex": 7
             },
             "destination": {
               "sheetId": newSheetId,
               "startRowIndex": i * (4+ len(users)),
               "endRowIndex": i * (4+ len(users)) + 4,
               "startColumnIndex": 0,
-              "endColumnIndex": 12
+              "endColumnIndex": 7
             },
             "pasteType": "PASTE_NORMAL",
           }
@@ -285,6 +285,21 @@ def main():
                 "pasteType": "PASTE_NORMAL",
               }
             })
+    
+    #Moving of sheet to front
+    
+    requests.append({
+            "updateSheetProperties": {
+                "properties":{
+                    "sheetId": newSheetId,
+                    "index": 0,
+                    "gridProperties": {
+                        "hideGridlines": 'true'
+                    }
+                },
+                "fields": 'index, gridProperties.hideGridlines'
+            }
+        })
     body = {
 		'requests': requests
 	}
