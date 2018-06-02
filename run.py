@@ -59,6 +59,8 @@ class MainPage(webapp2.RequestHandler):
             properties = sheet.get('properties')
             if (properties.get('title') == lastSheetName):
                 lastSheetId = properties.get('sheetId')
+            if (properties.get('title') == 'Base Sheet'):
+                baseSheetId = properties.get('sheetId')
         
         #Create Requests object
         #Two objectives for this request, hide last month's sheet and create next month's sheet
@@ -153,7 +155,7 @@ class MainPage(webapp2.RequestHandler):
             requests.append({
               "copyPaste": {
                 "source": {
-                  "sheetId": 1370351810,
+                  "sheetId": baseSheetId,
                   "startRowIndex": 0,
                   "endRowIndex": 4,
                   "startColumnIndex": 0,
@@ -232,7 +234,7 @@ class MainPage(webapp2.RequestHandler):
                 requests.append([{
                   "copyPaste": {
                     "source": {
-                      "sheetId": 1370351810,
+                      "sheetId": baseSheetId,
                       "startRowIndex": 4,
                       "endRowIndex": 5,
                       "startColumnIndex": 0,
@@ -254,7 +256,7 @@ class MainPage(webapp2.RequestHandler):
         requests.append({
                   "copyPaste": {
                     "source": {
-                      "sheetId": 1370351810,
+                      "sheetId": baseSheetId,
                       "startRowIndex": 5,
                       "endRowIndex": 13,
                       "startColumnIndex": 0,
